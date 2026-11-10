@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Swarm Animation Player</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="head">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div>
+        <h1>Swarm Animation</h1>
+        <p class="sub">页面构建动画播放器</p>
+      </div>
+    </div>
+    <span id="statusChip" class="chip idle">就绪</span>
+  </header>
+
+  <main>
+    <!-- 当前页面 + 播放控制 -->
+    <section class="card">
+      <div class="row site-row">
+        <span class="label">当前页面</span>
+        <span id="siteHost" class="host">—</span>
+      </div>
+      <button id="playBtn" class="play-btn" disabled>
+        <span id="playIcon" class="icon-play" aria-hidden="true"></span>
+        <span id="playText">播放动画</span>
+      </button>
+      <p id="pageHint" class="hint hidden"></p>
+    </section>
+
+    <!-- 自动播放 -->
+    <section class="card">
+      <div class="row">
+        <div>
+          <div class="label strong">新网页自动播放</div>
+          <div class="hint">开启后，每个加载完成的页面自动播放</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="autoPlayToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="label strong">模式</div>
+      <div class="segmented" id="modeGroup" role="radiogroup" aria-label="播放模式">
+        <button class="seg" data-mode="blacklist" role="radio">黑名单模式<br /><small>全部播放，除此名单</small></button>
+        <button class="seg" data-mode="whitelist" role="radio">白名单模式<br /><small>仅此名单内播放</small></button>
+      </div>
+
+      <button id="quickListBtn" class="ghost-btn"></button>
+    </section>
+
+    <!-- 名单管理 -->
+    <details class="card" id="listsCard">
+      <summary>
+        名单管理
+        <span id="listCounts" class="count-badge"></span>
+        <span class="chevron" aria-hidden="true">▾</span>
+      </summary>
+      <div class="tabs">
+        <button class="tab active" data-tab="blacklist">黑名单</button>
+        <button class="tab" data-tab="whitelist">白名单</button>
+      </div>
+      <ul id="listItems" class="list"></ul>
+      <div class="add-row">
+        <input type="text" id="entryInput" placeholder="example.com 或 https://a.example.com" spellcheck="false" />
+        <button id="addEntryBtn" class="mini-btn">添加</button>
+      </div>
+    </details>
+
+    <!-- 动画设置 -->
+    <details class="card">
+      <summary>
+        动画参数
+        <span class="chevron" aria-hidden="true">▾</span>
+      </summary>
+      <div class="slider-row">
+        <span class="label">光标数量</span>
+        <input type="range" id="agentsRange" min="6" max="60" step="2" />
+        <span id="agentsVal" class="val"></span>
+      </div>
+      <div class="slider-row">
+        <span class="label">播放速度</span>
+        <input type="range" id="speedRange" min="0.5" max="3" step="0.25" />
+        <span id="speedVal" class="val"></span>
+      </div>
+    </details>
+  </main>
+
+  <footer>
+    基于 <a href="https://github.com/thefullctx/swarm-animation" target="_blank" rel="noreferrer">thefullctx/swarm-animation</a> · MIT
+  </footer>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
